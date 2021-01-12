@@ -5,7 +5,7 @@ NodeJS - https://nodejs.org/en/
 
 ### Installation
 - Clone the project repository
-> git@github.com:m-ssilva/desafio-luiza-labs.git
+> git clone git@github.com:m-ssilva/desafio-luiza-labs.git
 - Install dependencies
 > npm install
 - Start application
