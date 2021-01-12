@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "lot": "0196",
+    "control_code": "56248",
+    "manufacturer_name": "RENAULT",
+    "manufacture_year": 2007,
+    "model_name": "CLIO 16VS",
+    "model_year": 2007,
+    "bid_date": "21/08/2020 - 13:24",
+    "bid_value": 0,
+    "bid_user": "-"
+  },
+  {
+    "id": 2,
+    "lot": "0196",
+    "control_code": "55421",
+    "manufacturer_name": "FIAT",
+    "manufacture_year": 2004,
+    "model_name": "PALIO",
+    "model_year": 2004,
+    "bid_date": "21/08/2020 - 13:30",
+    "bid_value": 0,
+    "bid_user": "-"
+  }
+]

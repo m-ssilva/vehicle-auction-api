@@ -1,0 +1,26 @@
+[
+  {
+    "ID": 1,
+    "DATALANCE": "21/08/2020 - 13:24",
+    "LOTE": "0196",
+    "CODIGOCONTROLE": "56248",
+    "MARCA": "RENAULT",
+    "MODELO": "CLIO 16VS",
+    "ANOFABRICACAO": 2007,
+    "ANOMODELO": 2007,
+    "VALORLANCE": 0,
+    "USUARIOLANCE": "-"
+  },
+  {
+    "ID": 2,
+    "DATALANCE": "21/08/2020 - 13:30",
+    "LOTE": "0196",
+    "CODIGOCONTROLE": "55421",
+    "MARCA": "FIAT",
+    "MODELO": "PALIO",
+    "ANOFABRICACAO": 2004,
+    "ANOMODELO": 2004,
+    "VALORLANCE": 0,
+    "USUARIOLANCE": "-"
+  }
+]
