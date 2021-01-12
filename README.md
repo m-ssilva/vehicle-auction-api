@@ -13,13 +13,13 @@ NodeJS - https://nodejs.org/en/
 - Application will be available in http://localhost:3000
 
 ### Endpoints
-**GET** - /auction/vehicle 
-**GET** - /auction/vehicle/:id 
-**GET** - /auction/vehicle/lot/:lot 
-**GET** - /auction/vehicle/manufacturer/:manufacturer 
-**GET** - /auction/vehicle/model/:modelName 
-**GET** - /auction/vehicle/manufacture/:manufactureYear/model/:modelYear 
-**GET** - /auction/vehicle/manufacture/:startYear/:endYear 
-**POST** - /auction/vehicle 
-**PUT** - /auction/vehicle/:id 
-**DELETE** - /auction/vehicle/:id 
+**GET** - /auction/vehicle  
+**GET** - /auction/vehicle/:id  
+**GET** - /auction/vehicle/lot/:lot  
+**GET** - /auction/vehicle/manufacturer/:manufacturer  
+**GET** - /auction/vehicle/model/:modelName  
+**GET** - /auction/vehicle/manufacture/:manufactureYear/model/:modelYear  
+**GET** - /auction/vehicle/manufacture/:startYear/:endYear  
+**POST** - /auction/vehicle  
+**PUT** - /auction/vehicle/:id  
+**DELETE** - /auction/vehicle/:id  
