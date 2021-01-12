@@ -1,13 +1,12 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-const { health, vehicles } = require('./src/services')
+const { vehicles } = require('./src/services')
 const { errorHandler, parameterValidator } = require('./src/middlewares')
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-app.get('/health', health.getHealth)
 app.get('/auction/vehicle', parameterValidator('GET_ALL_VEHICLES'), vehicles.getAllVehicles)
 app.get('/auction/vehicle/:id', parameterValidator('GET_VEHICLE_BY_ID'), vehicles.getVehicleById)
 app.get('/auction/vehicle/lot/:lot', parameterValidator('GET_VEHICLES_BY_LOT'), vehicles.getVehiclesByLot)
