@@ -1,0 +1,86 @@
+{
+  "DEFAULT": {
+    "status": 500,
+    "body": {
+      "message": "Ocorreu um erro inesperado"
+    }
+  },
+  "INVALID_SORT_FIELD": {
+    "status": 400,
+    "body": {
+      "message": "O nome de campo informado na query sortBy é inválido"
+    }
+  },
+  "INVALID_YEAR_PERIOD": {
+    "status": 400,
+    "body": {
+      "message": "O periodo de ano informado é inválido, forneça um ano válido no formato YYYY aonde o primeiro parâmetro seja menor que o segundo parâmetro, exemplo: 1990/2012"
+    }
+  },
+  "SCHEMA_NOT_FOUND": {
+    "status": 500,
+    "body": {
+      "message": "Ocorreu um erro na validação de parametros"
+    }
+  },
+  "ERROR_ON_GET_ALL_VEHICLES": {
+    "status": 500,
+    "body": {
+      "message": "Ocorreu um erro interno ao consultar a listagem de veículos"
+    }
+  },
+  "VEHICLE_NOT_FOUND": {
+    "status": 404,
+    "body": {
+      "message": "O ID de veículo informado não foi encontrado"
+    }
+  },
+  "VEHICLE_LOT_NOT_FOUND": {
+    "status": 404,
+    "body": {
+      "message": "O lote de veículo informado não foi encontrado"
+    }
+  },
+  "VEHICLE_MANUFACTURER_NOT_FOUND": {
+    "status": 404,
+    "body": {
+      "message": "O fabricante de veículo informado não foi encontrado"
+    }
+  },
+  "VEHICLE_MODEL_NAME_NOT_FOUND": {
+    "status": 404,
+    "body": {
+      "message": "O modelo de veículo informado não foi encontrado"
+    }
+  },
+  "VEHICLE_MANUFACTURER_MODEL_YEAR_NOT_FOUND": {
+    "status": 404,
+    "body": {
+      "message": "Não foi encontrado veículos com a combinação de ano de fabricação e ano de modelo informado"
+    }
+  },
+  "VEHICLES_BY_YEAR_PERIOD_NOT_FOUND": {
+    "status": 404,
+    "body": {
+      "message": "Não foi encontrado veículos com o período de ano informado"
+    }
+  },
+  "ERROR_CREATING_VEHICLE": {
+    "status": 500,
+    "body": {
+      "message": "Ocorreu um problema ao realizar o cadastro do veículo"
+    }
+  },
+  "ERROR_UPDATING_VEHICLE": {
+    "status": 500,
+    "body": {
+      "message": "Ocorreu um problema ao atualizar o veículo informado"
+    }
+  },
+  "ERROR_DELETING_VEHICLE": {
+    "status": 500,
+    "body": {
+      "message": "Ocorreu um problema ao excluir o veículo informado"
+    }
+  }
+}
