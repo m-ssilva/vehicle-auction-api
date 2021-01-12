@@ -1,0 +1,35 @@
+{
+  "name": "desafio-luiza-labs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/create-server.js",
+    "dev": "nodemon node server/create-server.js",
+    "test": "jest",
+    "cover": "npx jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m-ssilva/desafio-luiza-labs.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m-ssilva/desafio-luiza-labs/issues"
+  },
+  "homepage": "https://github.com/m-ssilva/desafio-luiza-labs#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "joi": "^17.3.0",
+    "winston": "^3.3.3"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3",
+    "nock": "^13.0.5",
+    "nodemon": "^2.0.7",
+    "supertest": "^6.0.1"
+  }
+}
