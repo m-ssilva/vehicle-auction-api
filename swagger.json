@@ -1,0 +1,834 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "List of all endpoints of API",
+    "version": "1.0.0",
+    "title": "Vehicle Auction API"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "local server"
+    }
+  ],
+  "paths": {
+    "/auction/vehicle": {
+      "get": {
+        "summary": "get all auction vehicles",
+        "tags": [
+          "auction"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sortBy"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success request, returns all auction vehicles",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayVehicles"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "create a new vehicle auction",
+        "tags": [
+          "auction"
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PostVehicle"
+        },
+        "responses": {
+          "201": {
+            "description": "Success request, vehicle auction is created and an vehicle object is returned based on provided information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When any invalid parameter is provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auction/vehicle/{id}": {
+      "get": {
+        "summary": "get a auction vehicle based on provided ID",
+        "tags": [
+          "auction"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success request, returns a unique vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When a invalid ID is provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When a valid id is provided, but is not associated with any vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "update a existing vehicle auction",
+        "tags": [
+          "auction"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "$ref": "#/components/requestBodies/PutVehicle"
+        },
+        "responses": {
+          "200": {
+            "description": "Success request, vehicle auction is updated and an updated object is returned on body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When any invalid parameter is provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "delete a existing vehicle auction",
+        "tags": [
+          "auction"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success request, return a success message on body",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleDeleteSuccess"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "When any invalid parameter is provided",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auction/vehicle/lot/{lot}": {
+      "get": {
+        "summary": "get a list of auction vehicles based of provided lot ID",
+        "tags": [
+          "auction"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sortBy"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          },
+          {
+            "name": "lot",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success requests, returns a list of vehicles filtered by lot ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayVehicles"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When a valid lot ID is provided, but is not associated with any auction vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleLotNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auction/vehicle/manufacturer/{manufacturer}": {
+      "get": {
+        "summary": "get a list of auction vehicles based on provided manufacturer name",
+        "tags": [
+          "auction"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sortBy"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          },
+          {
+            "name": "manufacturer",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success requests, returns a list of vehicles filtered by manufacturer name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayVehicles"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When a valid manufacturer name is provided, but is not associated with any auction vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleManufacturerNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auction/vehicle/model/{modelName}": {
+      "get": {
+        "summary": "get a list of auction vehicles based on provided model name",
+        "tags": [
+          "auction"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sortBy"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          },
+          {
+            "name": "modelName",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success requests, returns a list of vehicles filtered by model name",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayVehicles"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When a valid model name is provided, but is not associated with any auction vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleModelNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auction/vehicle/manufacture/{manufactureYear}/model/{modelYear}": {
+      "get": {
+        "summary": "get a list of auction vehicles based on provided manufacture year and model year",
+        "tags": [
+          "auction"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sortBy"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          },
+          {
+            "name": "manufactureYear",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": "2010"
+            }
+          },
+          {
+            "name": "modelYear",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": "2010"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success requests, returns a list of vehicles filtered by manufacture year and model year",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayVehicles"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When a valid manufacture year and model year is provided, but the combination is not associated with any auction vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleManufactureModelYearNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/auction/vehicle/manufacture/{startYear}/{endYear}": {
+      "get": {
+        "summary": "get a list of auction vehicles based on provided manufacture year and model year",
+        "tags": [
+          "auction"
+        ],
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/sortBy"
+          },
+          {
+            "$ref": "#/components/parameters/orderBy"
+          },
+          {
+            "name": "startYear",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": "2010"
+            }
+          },
+          {
+            "name": "endYear",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "example": "2012"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success requests, returns a list of vehicles filtered by a year period",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArrayVehicles"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "When a valid year period is provided, but the combination is not associated with any auction vehicle",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/VehicleByYearPeriodNotFound"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/InternalServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "InternalServerError": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Ocorreu um erro inesperado"
+          }
+        }
+      },
+      "ArrayVehicles": {
+        "items": {
+          "$ref": "#/components/schemas/VehicleSchema"
+        }
+      },
+      "BadRequest": {
+        "items": {
+          "$ref": "#/components/schemas/BadRequestProp"
+        }
+      },
+      "BadRequestProp": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "\"id\" must be a number"
+          },
+          "path": {
+            "items": {
+              "type": "string",
+              "example": "id"
+            }
+          },
+          "type": {
+            "type": "number",
+            "example": "number.base"
+          },
+          "content": {
+            "properties": {
+              "label": {
+                "type": "string",
+                "example": "id",
+                "description": "name of the parameter that is invalid"
+              },
+              "value": {
+                "type": "string",
+                "example": "invalid_field",
+                "description": "this is the invalid parameter provided by client"
+              },
+              "key": {
+                "type": "string",
+                "example": "id"
+              }
+            }
+          }
+        }
+      },
+      "VehicleSchema": {
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": "1"
+          },
+          "lot": {
+            "type": "string",
+            "example": "0196"
+          },
+          "control_code": {
+            "type": "string",
+            "example": "56248"
+          },
+          "manufacturer_name": {
+            "type": "string",
+            "example": "FIAT"
+          },
+          "manufacture_year": {
+            "type": "number",
+            "example": 2004
+          },
+          "model_name": {
+            "type": "string",
+            "example": "PALIO"
+          },
+          "model_year": {
+            "type": "number",
+            "example": 2004
+          },
+          "bid_date": {
+            "type": "string",
+            "example": "00/00/0000 - 00:00"
+          },
+          "bid_value": {
+            "type": "number",
+            "example": "0"
+          },
+          "bid_user": {
+            "type": "string",
+            "example": "user"
+          }
+        }
+      },
+      "VehicleNotFound": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O ID de veículo informado não foi encontrado"
+          }
+        }
+      },
+      "VehicleLotNotFound": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O lote de veículo informado não foi encontrado"
+          }
+        }
+      },
+      "VehicleManufacturerNotFound": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O fabricante de veículo informado não foi encontrado"
+          }
+        }
+      },
+      "VehicleModelNotFound": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O modelo de veículo informado não foi encontrado"
+          }
+        }
+      },
+      "VehicleManufactureModelYearNotFound": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Não foi encontrado veículos com a combinação de ano de fabricação e ano de modelo informado"
+          }
+        }
+      },
+      "VehicleByYearPeriodNotFound": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "Não foi encontrado veículos com o período de ano informado"
+          }
+        }
+      },
+      "PostVehicle": {
+        "properties": {
+          "lot": {
+            "type": "string",
+            "example": "0196"
+          },
+          "control_code": {
+            "type": "string",
+            "example": "56248"
+          },
+          "manufacturer_name": {
+            "type": "string",
+            "example": "FIAT"
+          },
+          "manufacture_year": {
+            "type": "number",
+            "example": 2004
+          },
+          "model_name": {
+            "type": "string",
+            "example": "PALIO"
+          },
+          "model_year": {
+            "type": "number",
+            "example": 2004
+          },
+          "bid_date": {
+            "type": "string",
+            "example": "00/00/0000 - 00:00"
+          },
+          "bid_value": {
+            "type": "number",
+            "example": "0"
+          },
+          "bid_user": {
+            "type": "string",
+            "example": "user"
+          }
+        }
+      },
+      "PutVehicle": {
+        "description": "At least one field is required to obtain success in request",
+        "properties": {
+          "lot": {
+            "type": "string",
+            "example": "0196"
+          },
+          "control_code": {
+            "type": "string",
+            "example": "56248"
+          },
+          "manufacturer_name": {
+            "type": "string",
+            "example": "FIAT"
+          },
+          "manufacture_year": {
+            "type": "number",
+            "example": 2004
+          },
+          "model_name": {
+            "type": "string",
+            "example": "PALIO"
+          },
+          "model_year": {
+            "type": "number",
+            "example": 2004
+          },
+          "bid_date": {
+            "type": "string",
+            "example": "00/00/0000 - 00:00"
+          },
+          "bid_value": {
+            "type": "number",
+            "example": "0"
+          },
+          "bid_user": {
+            "type": "string",
+            "example": "user"
+          }
+        }
+      },
+      "VehicleDeleteSuccess": {
+        "properties": {
+          "message": {
+            "type": "string",
+            "example": "O veículo informado foi deletado com sucesso"
+          }
+        }
+      }
+    },
+    "parameters": {
+      "sortBy": {
+        "in": "query",
+        "name": "sortBy",
+        "description": "when this field is provided all content is sorted by a specified field (`id`, `lot`, `control_code`, `manufacturer_name`, `model_name` `manufacture_year`, `model_year`, `bid_value`, `bid_date`, `bid_user`)",
+        "schema": {
+          "type": "string",
+          "example": "id"
+        }
+      },
+      "orderBy": {
+        "in": "query",
+        "name": "orderBy",
+        "description": "`asc` or `desc`",
+        "schema": {
+          "type": "string",
+          "example": "asc"
+        }
+      }
+    },
+    "requestBodies": {
+      "PostVehicle": {
+        "required": true,
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PostVehicle"
+            }
+          }
+        }
+      },
+      "PutVehicle": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/PutVehicle"
+            }
+          }
+        }
+      }
+    }
+  }
+}
