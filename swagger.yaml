@@ -4,14 +4,14 @@ info:
   version: "1.0.0"
   title: "Vehicle Auction API"
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3000/v1/auction
     description: local server
 paths:
-  /auction/vehicle:
+  /vehicles:
     get:
       summary: "get all auction vehicles"
       tags:
-        - "auction"
+        - "vehicles"
       parameters:
         - $ref: "#/components/parameters/sortBy"
         - $ref: "#/components/parameters/orderBy"
@@ -31,7 +31,7 @@ paths:
     post:
       summary: "create a new vehicle auction"
       tags:
-        - "auction"
+        - "vehicles"
       requestBody:
         $ref: "#/components/requestBodies/PostVehicle"
       responses:
@@ -40,7 +40,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/VehicleSchema"
+                $ref: "#/components/schemas/VehicleSchemaPost"
         400:
           description: "When any invalid parameter is provided"
           content:
@@ -54,11 +54,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
-  /auction/vehicle/{id}:
+  /vehicles/{id}:
     get:
       summary: "get a auction vehicle based on provided ID"
       tags:
-        - "auction"
+        - "vehicles"
       parameters:
         - name: "id"
           in: "path"
@@ -71,7 +71,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/VehicleSchema"
+                $ref: "#/components/schemas/VehicleSchemaSingle"
         400:
           description: "When a invalid ID is provided"
           content:
@@ -95,7 +95,7 @@ paths:
     put:
       summary: "update a existing vehicle auction"
       tags:
-        - "auction"
+        - "vehicles"
       parameters:
         - name: "id"
           in: "path"
@@ -126,7 +126,7 @@ paths:
     delete:
       summary: "delete a existing vehicle auction"
       tags:
-        - "auction"
+        - "vehicles"
       parameters:
         - name: "id"
           in: "path"
@@ -134,12 +134,8 @@ paths:
           schema:
             type: "number"
       responses:
-        200:
-          description: "Success request, return a success message on body"
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/VehicleDeleteSuccess"
+        204:
+          description: "Success request, vehicle deleted"
         400:
           description: "When any invalid parameter is provided"
           content:
@@ -153,11 +149,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
-  /auction/vehicle/lot/{lot}:
+  /vehicles/lot/{lot}:
     get:
       summary: "get a list of auction vehicles based of provided lot ID"
       tags:
-        - "auction"
+        - "vehicles"
       parameters:
         - $ref: "#/components/parameters/sortBy"
         - $ref: "#/components/parameters/orderBy"
@@ -187,11 +183,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
-  /auction/vehicle/manufacturer/{manufacturer}:
+  /vehicles/manufacturer/{manufacturer}:
     get:
       summary: "get a list of auction vehicles based on provided manufacturer name"
       tags:
-        - "auction"
+        - "vehicles"
       parameters:
         - $ref: "#/components/parameters/sortBy"
         - $ref: "#/components/parameters/orderBy"
@@ -221,11 +217,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
-  /auction/vehicle/model/{modelName}:
+  /vehicles/model/{modelName}:
     get:
       summary: "get a list of auction vehicles based on provided model name"
       tags:
-        - "auction"
+        - "vehicles"
       parameters:
         - $ref: "#/components/parameters/sortBy"
         - $ref: "#/components/parameters/orderBy"
@@ -255,11 +251,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
-  /auction/vehicle/manufacture/{manufactureYear}/model/{modelYear}:
+  /vehicles/manufacture/{manufactureYear}/model/{modelYear}:
     get:
       summary: "get a list of auction vehicles based on provided manufacture year and model year"
       tags:
-        - "auction"
+        - "vehicles"
       parameters:
         - $ref: "#/components/parameters/sortBy"
         - $ref: "#/components/parameters/orderBy"
@@ -295,11 +291,11 @@ paths:
               schema:
                 $ref: "#/components/schemas/InternalServerError"
 
-  /auction/vehicle/manufacture/{startYear}/{endYear}:
+  /vehicles/manufacture/{startYear}/{endYear}:
     get:
       summary: "get a list of auction vehicles based on provided manufacture year and model year"
       tags:
-        - "auction"
+        - "vehicles"
       parameters:
         - $ref: "#/components/parameters/sortBy"
         - $ref: "#/components/parameters/orderBy"
@@ -400,15 +396,135 @@ components:
         model_year:
           type: "number"
           example: 2004
-        bid_date:
-          type: "string"
-          example: "00/00/0000 - 00:00"
-        bid_value:
+        bid:
+          properties:
+            date:
+              type: "string"
+              example: "00/00/0000 - 00:00"
+            value:
+              type: "number"
+              example: "0"
+            user:
+              type: "string"
+              example: "user"
+
+    VehicleSchemaPost:
+      properties:
+        id:
           type: "number"
-          example: "0"
-        bid_user:
+          example: "1"
+        lot:
           type: "string"
-          example: "user"
+          example: "0196"
+        control_code:
+          type: "string"
+          example: "56248"
+        manufacturer_name:
+          type: "string"
+          example: "FIAT"
+        manufacture_year:
+          type: "number"
+          example: 2004
+        model_name:
+          type: "string"
+          example: "PALIO"
+        model_year:
+          type: "number"
+          example: 2004
+        bid:
+          properties:
+            date:
+              type: "string"
+              example: "00/00/0000 - 00:00"
+            value:
+              type: "number"
+              example: "0"
+            user:
+              type: "string"
+              example: "user"
+        links:
+          type: array
+          items:
+            type: object
+            properties:
+              uri:
+                type: string
+                example: "/maga-auctions/v1/vehicles/9999"
+              rel:
+                type: string
+                example: "self"
+              type:
+                type: string
+                example: "PUT"
+          example:
+            - rel: "self"
+              method: "GET"
+              uri: "/v1/auction/vehicles/9999"
+            - rel: "self"
+              method: "PUT"
+              uri: "/v1/auction/vehicles/9999"
+            - rel: "self"
+              type: "DELETE"
+              uri: "/v1/auction/vehicles/9999"
+
+    VehicleSchemaSingle:
+      properties:
+        id:
+          type: "number"
+          example: "1"
+        lot:
+          type: "string"
+          example: "0196"
+        control_code:
+          type: "string"
+          example: "56248"
+        manufacturer_name:
+          type: "string"
+          example: "FIAT"
+        manufacture_year:
+          type: "number"
+          example: 2004
+        model_name:
+          type: "string"
+          example: "PALIO"
+        model_year:
+          type: "number"
+          example: 2004
+        bid:
+          properties:
+            date:
+              type: "string"
+              example: "00/00/0000 - 00:00"
+            value:
+              type: "number"
+              example: "0"
+            user:
+              type: "string"
+              example: "user"
+        links:
+          $ref: "#/components/schemas/Links"
+
+    Links:
+      type: array
+      items:
+        type: object
+        properties:
+          uri:
+            type: string
+            example: "/maga-auctions/v1/vehicles/{id}"
+          rel:
+            type: string
+            example: "self"
+          type:
+            type: string
+            example: "PUT"
+      example:
+        - rel: "self"
+          method: "PUT"
+          uri: "/v1/auction/vehicles/1"
+        - rel: "self"
+          type: "DELETE"
+          uri: "/v1/auction/vehicles/1"
 
     VehicleNotFound:
       properties:
@@ -466,15 +582,17 @@ components:
         model_year:
           type: "number"
           example: 2004
-        bid_date:
-          type: "string"
-          example: "00/00/0000 - 00:00"
-        bid_value:
-          type: "number"
-          example: "0"
-        bid_user:
-          type: "string"
-          example: "user"
+        bid:
+          properties:
+            date:
+              type: "string"
+              example: "00/00/0000 - 00:00"
+            value:
+              type: "number"
+              example: "0"
+            user:
+              type: "string"
+              example: "user"
 
     PutVehicle:
       description: "At least one field is required to obtain success in request"
@@ -497,33 +615,29 @@ components:
         model_year:
           type: "number"
           example: 2004
-        bid_date:
-          type: "string"
-          example: "00/00/0000 - 00:00"
-        bid_value:
-          type: "number"
-          example: "0"
-        bid_user:
-          type: "string"
-          example: "user"
-
-    VehicleDeleteSuccess:
-      properties:
-        message:
-          type: "string"
-          example: "O veículo informado foi deletado com sucesso"
+        bid:
+          properties:
+            date:
+              type: "string"
+              example: "00/00/0000 - 00:00"
+            value:
+              type: "number"
+              example: "0"
+            user:
+              type: "string"
+              example: "user"
 
   parameters:
     sortBy:
       in: query
-      name: sortBy
+      name: sort
       description: "when this field is provided all content is sorted by a specified field (`id`, `lot`, `control_code`, `manufacturer_name`, `model_name` `manufacture_year`, `model_year`, `bid_value`, `bid_date`, `bid_user`)"
       schema:
         type: "string"
         example: "id"
     orderBy:
       in: query
-      name: orderBy
+      name: order
       description: "`asc` or `desc`"
       schema:
         type: "string"
