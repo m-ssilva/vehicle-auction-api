@@ -219,7 +219,7 @@ paths:
 
   /vehicles/model/{modelName}:
     get:
-      summary: "get a list of auction vehicles based on provided model name"
+      summary: "get a list of auction vehicles based on provided model initial letters"
       tags:
         - "vehicles"
       parameters:
@@ -400,10 +400,11 @@ components:
           properties:
             date:
               type: "string"
-              example: "00/00/0000 - 00:00"
+              format: date-time
+              example: "2020-08-22T13:23:00Z"
             value:
               type: "number"
-              example: "0"
+              example: 0
             user:
               type: "string"
               example: "user"
@@ -435,10 +436,11 @@ components:
           properties:
             date:
               type: "string"
-              example: "00/00/0000 - 00:00"
+              format: date-time
+              example: "2020-08-22T13:23:00Z"
             value:
               type: "number"
-              example: "0"
+              example: 0
             user:
               type: "string"
               example: "user"
@@ -494,10 +496,11 @@ components:
           properties:
             date:
               type: "string"
-              example: "00/00/0000 - 00:00"
+              format: date-time
+              example: "2020-08-22T13:23:00Z"
             value:
               type: "number"
-              example: "0"
+              example: 0
             user:
               type: "string"
               example: "user"
@@ -586,10 +589,11 @@ components:
           properties:
             date:
               type: "string"
-              example: "00/00/0000 - 00:00"
+              format: date-time
+              example: "2020-08-22T13:23:00Z"
             value:
               type: "number"
-              example: "0"
+              example: 0
             user:
               type: "string"
               example: "user"
@@ -619,10 +623,11 @@ components:
           properties:
             date:
               type: "string"
-              example: "00/00/0000 - 00:00"
+              format: date-time
+              example: "2020-08-22T13:23:00Z"
             value:
               type: "number"
-              example: "0"
+              example: 0
             user:
               type: "string"
               example: "user"
@@ -630,14 +635,14 @@ components:
   parameters:
     sortBy:
       in: query
-      name: sort
-      description: "when this field is provided all content is sorted by a specified field (`id`, `lot`, `control_code`, `manufacturer_name`, `model_name` `manufacture_year`, `model_year`, `bid_value`, `bid_date`, `bid_user`)"
+      name: _sort
+      description: "when this field is provided all content is sorted by a specified field (`id`, `lot`, `control_code`, `manufacture_year`, `model_year`, `bid.value`, `bid.date`)"
       schema:
         type: "string"
         example: "id"
     orderBy:
       in: query
-      name: order
+      name: _order
       description: "`asc` or `desc`"
       schema:
         type: "string"
