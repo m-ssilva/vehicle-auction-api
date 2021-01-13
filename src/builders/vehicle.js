@@ -8,21 +8,23 @@ const singleVehicleMapper = vehicle => ({
   manufacture_year: vehicle.ANOFABRICACAO,
   model_name: vehicle.MODELO,
   model_year: vehicle.ANOMODELO,
-  bid_date: vehicle.DATALANCE,
-  bid_value: vehicle.VALORLANCE,
-  bid_user: vehicle.USUARIOLANCE
+  bid: {
+    date: vehicle.DATALANCE,
+    value: vehicle.VALORLANCE,
+    user: vehicle.USUARIOLANCE
+  }
 })
 
 const vehicleMapperLegacy = vehicle => ({
-  DATALANCE: vehicle.bid_date,
+  DATALANCE: vehicle.bid.date,
   LOTE: vehicle.lot,
   CODIGOCONTROLE: vehicle.control_code,
   MARCA: vehicle.manufacturer_name,
   MODELO: vehicle.model_name,
   ANOFABRICACAO: vehicle.manufacture_year,
   ANOMODELO: vehicle.model_year,
-  VALORLANCE: vehicle.bid_value,
-  USUARIOLANCE: vehicle.bid_user
+  VALORLANCE: vehicle.bid.value,
+  USUARIOLANCE: vehicle.bid.user
 })
 
 const vehicleMapper = vehicles => {
