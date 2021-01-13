@@ -51,7 +51,7 @@ const getVehicleByManufacturerYearAndModelYear = async (manufactureYear, modelYe
 
 const getVehiclesByYearPeriod = async (startYear, endYear, sort, order) => {
   const isYearValid = YEAR_REGEX.test(startYear) && YEAR_REGEX.test(endYear)
-  const isStartYearLowerThanEndYear = startYear < endYear
+  const isStartYearLowerThanEndYear = startYear <= endYear
   if (!isYearValid || !isStartYearLowerThanEndYear) throw new Error('INVALID_YEAR_PERIOD')
   const allVehicles = await legacy.getAllVehicles()
   const vehicles = allVehicles.filter(vehicle => {

@@ -1,4 +1,19 @@
-const supportedOrderByFields = ['id', 'lot', 'control_code', 'manufacturer_name', 'manufacture_year', 'model_name', 'model_year', 'bid_date', 'bid_value', 'bid_user']
+const dayjs = require('dayjs')
+const customParseFormat = require('dayjs/plugin/customParseFormat')
+const utc = require('dayjs/plugin/utc')
+
+dayjs.extend(customParseFormat)
+dayjs.extend(utc)
+
+const dateToString = date => {
+  if (date) return dayjs(date).utc(true).format("DD/MM/YYYY - HH:mm")
+}
+
+const stringToDate = stringDate => {
+  if (stringDate) return dayjs(stringDate, "DD/MM/YYYY - HH:mm").utc(true).format()
+}
+
+const supportedOrderByFields = ['id', 'lot', 'control_code', 'manufacture_year', 'model_year', 'bid.date', 'bid.value']
 
 const singleVehicleMapper = vehicle => ({
   id: vehicle.ID,
@@ -9,14 +24,14 @@ const singleVehicleMapper = vehicle => ({
   model_name: vehicle.MODELO,
   model_year: vehicle.ANOMODELO,
   bid: {
-    date: vehicle.DATALANCE,
+    date: stringToDate(vehicle.DATALANCE),
     value: vehicle.VALORLANCE,
     user: vehicle.USUARIOLANCE
   }
 })
 
 const vehicleMapperLegacy = vehicle => ({
-  DATALANCE: vehicle.bid.date,
+  DATALANCE: dateToString(vehicle.bid.date),
   LOTE: vehicle.lot,
   CODIGOCONTROLE: vehicle.control_code,
   MARCA: vehicle.manufacturer_name,
@@ -32,9 +47,25 @@ const vehicleMapper = vehicles => {
   return singleVehicleMapper(vehicles)
 }
 
-const ascendingOrder = (vehicles, field) => vehicles.sort((a, b) => a[field] - b[field])
+const sortDateAscending = (vehicles, fieldArray) =>
+  vehicles.sort((a, b) => new Date(a[fieldArray[0]][fieldArray[1]]) - new Date(b[fieldArray[0]][fieldArray[1]]))
 
-const descendingOrder = (vehicles, field) => vehicles.sort((a, b) => b[field] - a[field])
+const sortDateDescending = (vehicles, fieldArray) =>
+  vehicles.sort((a, b) => new Date(b[fieldArray[0]][fieldArray[1]]) - new Date(a[fieldArray[0]][fieldArray[1]]))
+
+const ascendingOrder = (vehicles, field) => {
+  if (!field.includes('.')) return vehicles.sort((a, b) => a[field] - b[field])
+  const splitedField = field.split('.')
+  if (splitedField[1] === 'date') return sortDateAscending(vehicles, splitedField)
+  return vehicles.sort((a, b) => a[splitedField[0]][splitedField[1]] - b[splitedField[0]][splitedField[1]])
+}
+
+const descendingOrder = (vehicles, field) => {
+  if (!field.includes('.')) return vehicles.sort((a, b) => b[field] - a[field])
+  const splitedField = field.split('.')
+  if (splitedField[1] === 'date') return sortDateDescending(vehicles, splitedField)
+  return vehicles.sort((a, b) => new Date(b[splitedField[0]][splitedField[1]]) - new Date(a[splitedField[0]][splitedField[1]]))
+}
 
 const orderByField = (vehicles, field, orderType) => {
   const isFieldSupported = supportedOrderByFields.find(mappedField => mappedField === field)
