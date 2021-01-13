@@ -3,9 +3,9 @@ const { vehicle: vehicleOrganizer } = require('../builders')
 
 const YEAR_REGEX = /^\d{4}$/
 
-const getAllVehicles = async (sortBy, orderBy) => {
+const getAllVehicles = async (sort, order) => {
   const allVehicles = await legacy.getAllVehicles()
-  return vehicleOrganizer.orderVehicles(allVehicles, sortBy, orderBy)
+  return vehicleOrganizer.orderVehicles(allVehicles, sort, order)
 }
 
 const getVehicleById = async id => {
@@ -15,30 +15,30 @@ const getVehicleById = async id => {
   return vehicleOrganizer.orderVehicles(vehicle)
 }
 
-const getVehiclesByLot = async (lot, sortBy, orderBy) => {
+const getVehiclesByLot = async (lot, sort, order) => {
   const allVehicles = await legacy.getAllVehicles()
   const vehicles = allVehicles.filter(vehicle => vehicle.LOTE.toString() === lot)
   if (!vehicles.length) throw new Error('VEHICLE_LOT_NOT_FOUND')
-  return vehicleOrganizer.orderVehicles(vehicles, sortBy, orderBy)
+  return vehicleOrganizer.orderVehicles(vehicles, sort, order)
 }
 
-const getVehiclesByManufacturer = async (manufacturer, sortBy, orderBy) => {
+const getVehiclesByManufacturer = async (manufacturer, sort, order) => {
   const allVehicles = await legacy.getAllVehicles()
   const vehicles = allVehicles.filter(vehicle => vehicle.MARCA === manufacturer.toUpperCase())
   if (!vehicles.length) throw new Error('VEHICLE_MANUFACTURER_NOT_FOUND')
-  return vehicleOrganizer.orderVehicles(vehicles, sortBy, orderBy)
+  return vehicleOrganizer.orderVehicles(vehicles, sort, order)
 }
 
-const getVehiclesByModelName = async (modelName, sortBy, orderBy) => {
+const getVehiclesByModelName = async (modelName, sort, order) => {
   const allVehicles = await legacy.getAllVehicles()
   const vehicles = allVehicles.filter(vehicle => {
     if (vehicle.MODELO) return vehicle.MODELO.startsWith(modelName.toUpperCase())
   })
   if (!vehicles.length) throw new Error('VEHICLE_MODEL_NAME_NOT_FOUND')
-  return vehicleOrganizer.orderVehicles(vehicles, sortBy, orderBy)
+  return vehicleOrganizer.orderVehicles(vehicles, sort, order)
 }
 
-const getVehicleByManufacturerYearAndModelYear = async (manufactureYear, modelYear, sortBy, orderBy) => {
+const getVehicleByManufacturerYearAndModelYear = async (manufactureYear, modelYear, sort, order) => {
   const allVehicles = await legacy.getAllVehicles()
   const vehicles = allVehicles.filter(vehicle => {
     if (vehicle.ANOFABRICACAO && vehicle.ANOMODELO)
@@ -46,10 +46,10 @@ const getVehicleByManufacturerYearAndModelYear = async (manufactureYear, modelYe
         && vehicle.ANOMODELO.toString() === modelYear
   })
   if (!vehicles.length) throw new Error('VEHICLE_MANUFACTURER_MODEL_YEAR_NOT_FOUND')
-  return vehicleOrganizer.orderVehicles(vehicles, sortBy, orderBy)
+  return vehicleOrganizer.orderVehicles(vehicles, sort, order)
 }
 
-const getVehiclesByYearPeriod = async (startYear, endYear, sortBy, orderBy) => {
+const getVehiclesByYearPeriod = async (startYear, endYear, sort, order) => {
   const isYearValid = YEAR_REGEX.test(startYear) && YEAR_REGEX.test(endYear)
   const isStartYearLowerThanEndYear = startYear < endYear
   if (!isYearValid || !isStartYearLowerThanEndYear) throw new Error('INVALID_YEAR_PERIOD')
@@ -59,7 +59,7 @@ const getVehiclesByYearPeriod = async (startYear, endYear, sortBy, orderBy) => {
       return vehicle.ANOFABRICACAO >= startYear && vehicle.ANOFABRICACAO <= endYear
   })
   if (!vehicles.length) throw new Error('VEHICLES_BY_YEAR_PERIOD_NOT_FOUND')
-  return vehicleOrganizer.orderVehicles(vehicles, sortBy, orderBy)
+  return vehicleOrganizer.orderVehicles(vehicles, sort, order)
 }
 
 const createVehicle = async vehicle => {

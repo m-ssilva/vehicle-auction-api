@@ -2,8 +2,8 @@ const Joi = require('joi')
 
 const defaultQueryParams = {
   query: Joi.object({
-    sortBy: Joi.string(),
-    orderBy: Joi.string().valid('asc', 'desc')
+    sort: Joi.string(),
+    order: Joi.string().valid('asc', 'desc')
   })
 }
 

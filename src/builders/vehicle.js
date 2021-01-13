@@ -44,10 +44,10 @@ const orderByField = (vehicles, field, orderType) => {
   return ascendingOrder(vehicles, field)
 }
 
-const orderVehicles = (vehicles, sortBy, orderBy) => {
+const orderVehicles = (vehicles, sort, order) => {
   const mappedVehicles = vehicleMapper(vehicles)
-  if (!sortBy) return mappedVehicles
-  return orderByField(mappedVehicles, sortBy, orderBy)
+  if (!sort) return mappedVehicles
+  return orderByField(mappedVehicles, sort, order)
 }
 
 module.exports = {
