@@ -20,14 +20,14 @@ afterEach(() => {
   nock.cleanAll()
 })
 
-describe('GET on /auction/vehicle', () => {
+describe('GET on /v1/auction/vehicles', () => {
   test('return 200 and a list of vehicles when integration returns success', async () => {
     nock('https://dev.apiluiza.com.br')
       .post('/legado/veiculo')
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle')
+      .get('/v1/auction/vehicles')
       .expect(200, expectedGetVehicle)
   })
 
@@ -37,8 +37,8 @@ describe('GET on /auction/vehicle', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle')
-      .query({ sortBy: 'id', orderBy: 'desc' })
+      .get('/v1/auction/vehicles')
+      .query({ sort: 'id', order: 'desc' })
       .expect(200, expectedGetVehiclesOrdened)
   })
 
@@ -48,19 +48,19 @@ describe('GET on /auction/vehicle', () => {
       .reply(500, { message: 'ANY_ERROR' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle')
+      .get('/v1/auction/vehicles')
       .expect(500, { message: 'Ocorreu um erro interno ao consultar a listagem de veículos' })
   })
 })
 
-describe('GET on /auction/vehicle/:id', () => {
+describe('GET on /v1/auction/vehicles/:id', () => {
   test('return 200 and a unique vehicle based on provided ID, when integration returns success', async () => {
     nock('https://dev.apiluiza.com.br')
       .post('/legado/veiculo')
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/1')
+      .get('/v1/auction/vehicles/1')
       .expect(200, expectedGetVehicleId)
   })
 
@@ -70,7 +70,7 @@ describe('GET on /auction/vehicle/:id', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/945')
+      .get('/v1/auction/vehicles/945')
       .expect(404, { message: 'O ID de veículo informado não foi encontrado' })
   })
 
@@ -80,25 +80,25 @@ describe('GET on /auction/vehicle/:id', () => {
       .reply(500, { message: 'ANY_ERROR' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/1')
+      .get('/v1/auction/vehicles/1')
       .expect(500, { message: 'Ocorreu um erro interno ao consultar a listagem de veículos' })
   })
 
   test('return 400, when a invalid id is provided', async () => {
     await request
-      .get('/auction/vehicle/non_valid')
+      .get('/v1/auction/vehicles/non_valid')
       .expect(400)
   })
 })
 
-describe('GET on /auction/vehicle/lot/:lot', () => {
+describe('GET on /v1/auction/vehicles/lot/:lot', () => {
   test('return 200 and a list of vehicles filtered by lot, when integration returns success', async () => {
     nock('https://dev.apiluiza.com.br')
       .post('/legado/veiculo')
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/lot/0196')
+      .get('/v1/auction/vehicles/lot/0196')
       .expect(200, expectedGetVehicle)
   })
 
@@ -108,8 +108,8 @@ describe('GET on /auction/vehicle/lot/:lot', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/lot/0196')
-      .query({ sortBy: 'id', orderBy: 'desc' })
+      .get('/v1/auction/vehicles/lot/0196')
+      .query({ sort: 'id', order: 'desc' })
       .expect(200, expectedGetVehiclesOrdened)
   })
 
@@ -119,7 +119,7 @@ describe('GET on /auction/vehicle/lot/:lot', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/lot/4040')
+      .get('/v1/auction/vehicles/lot/4040')
       .expect(404, { message: 'O lote de veículo informado não foi encontrado' })
   })
 
@@ -129,19 +129,19 @@ describe('GET on /auction/vehicle/lot/:lot', () => {
       .reply(500, { message: 'ANY_ERROR' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/lot/0196')
+      .get('/v1/auction/vehicles/lot/0196')
       .expect(500, { message: 'Ocorreu um erro interno ao consultar a listagem de veículos' })
   })
 })
 
-describe('GET on /auction/vehicle/manufacturer/:manufacturer', () => {
+describe('GET on /v1/auction/vehicles/manufacturer/:manufacturer', () => {
   test('return 200 and a list of vehicles filtered by provided manufacturer name', async () => {
     nock('https://dev.apiluiza.com.br')
       .post('/legado/veiculo')
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/manufacturer/fiat')
+      .get('/v1/auction/vehicles/manufacturer/fiat')
       .expect(200, expectedGetVehicleManufacturer)
   })
 
@@ -151,7 +151,7 @@ describe('GET on /auction/vehicle/manufacturer/:manufacturer', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/manufacturer/non_valid')
+      .get('/v1/auction/vehicles/manufacturer/non_valid')
       .expect(404, { message: 'O fabricante de veículo informado não foi encontrado' })
   })
 
@@ -161,7 +161,7 @@ describe('GET on /auction/vehicle/manufacturer/:manufacturer', () => {
       .reply(500, { message: 'ANY_ERROR' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/manufacturer/fiat')
+      .get('/v1/auction/vehicles/manufacturer/fiat')
       .expect(500, { message: 'Ocorreu um erro interno ao consultar a listagem de veículos' })
   })
 })
@@ -173,7 +173,7 @@ describe('GET on /auction/vehicle/model/:modelName', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/model/palio')
+      .get('/v1/auction/vehicles/model/palio')
       .expect(200, [expectedGetVehicle[1]])
   })
 
@@ -183,7 +183,7 @@ describe('GET on /auction/vehicle/model/:modelName', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/model/cli')
+      .get('/v1/auction/vehicles/model/cli')
       .expect(200, [expectedGetVehicle[0]])
   })
 
@@ -193,7 +193,7 @@ describe('GET on /auction/vehicle/model/:modelName', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/model/not_valid')
+      .get('/v1/auction/vehicles/model/not_valid')
       .expect(404, { message: 'O modelo de veículo informado não foi encontrado' })
   })
 
@@ -203,19 +203,19 @@ describe('GET on /auction/vehicle/model/:modelName', () => {
       .reply(500, { message: 'ANY_ERROR' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/model/not_valid')
+      .get('/v1/auction/vehicles/model/not_valid')
       .expect(500, { message: 'Ocorreu um erro interno ao consultar a listagem de veículos' })
   })
 })
 
-describe('GET on /auction/vehicle/manufacture/:manufactureYear/model/:modelYear', () => {
+describe('GET on /v1/auction/vehicles/manufacture/:manufactureYear/model/:modelYear', () => {
   test('return 200 and a list of vehicles based on provided manufacture year and model year', async () => {
     nock('https://dev.apiluiza.com.br')
       .post('/legado/veiculo')
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/manufacture/2004/model/2004')
+      .get('/v1/auction/vehicles/manufacture/2004/model/2004')
       .expect(200, [expectedGetVehicle[1]])
   })
 
@@ -225,7 +225,7 @@ describe('GET on /auction/vehicle/manufacture/:manufactureYear/model/:modelYear'
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/manufacture/2010/model/2010')
+      .get('/v1/auction/vehicles/manufacture/2010/model/2010')
       .expect(404, { message: 'Não foi encontrado veículos com a combinação de ano de fabricação e ano de modelo informado' })
   })
 
@@ -235,19 +235,19 @@ describe('GET on /auction/vehicle/manufacture/:manufactureYear/model/:modelYear'
       .reply(500, { message: 'ANY_ERROR' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/manufacture/2004/model/2004')
+      .get('/v1/auction/vehicles/manufacture/2004/model/2004')
       .expect(500, { message: 'Ocorreu um erro interno ao consultar a listagem de veículos' })
   })
 })
 
-describe('GET on /auction/vehicle/manufacture/:startYear/:endYear', () => {
+describe('GET on /v1/auction/vehicles/manufacture/:startYear/:endYear', () => {
   test('return 200 and a list of vehicles based on provided parameters', async () => {
     nock('https://dev.apiluiza.com.br')
       .post('/legado/veiculo')
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/manufacture/2004/2007')
+      .get('/v1/auction/vehicles/manufacture/2004/2007')
       .expect(200, expectedGetVehicle)
   })
 
@@ -257,7 +257,7 @@ describe('GET on /auction/vehicle/manufacture/:startYear/:endYear', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/manufacture/2009/2012')
+      .get('/v1/auction/vehicles/manufacture/2009/2012')
       .expect(404, { message: 'Não foi encontrado veículos com o período de ano informado' })
   })
 
@@ -267,7 +267,7 @@ describe('GET on /auction/vehicle/manufacture/:startYear/:endYear', () => {
       .reply(500, { message: 'ANY_ERROR' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .get('/auction/vehicle/manufacture/2004/2007')
+      .get('/v1/auction/vehicles/manufacture/2004/2007')
       .expect(500, { message: 'Ocorreu um erro interno ao consultar a listagem de veículos' })
   })
 })

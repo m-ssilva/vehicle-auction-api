@@ -6,7 +6,26 @@
   "manufacture_year": "2007",
   "model_name": "CLIO 16VS",
   "model_year": "2007",
-  "bid_date": "21/08/2020 - 13:24",
-  "bid_value": 100,
-  "bid_user": "mssilva"
+  "bid": {
+    "date": "21/08/2020 - 13:24",
+    "value": 100,
+    "user": "mssilva"
+  },
+  "links": [
+    {
+      "rel": "self",
+      "method": "GET",
+      "uri": "/v1/auction/vehicles/9999"
+    },
+    {
+      "rel": "self",
+      "method": "PUT",
+      "uri": "/v1/auction/vehicles/9999"
+    },
+    {
+      "rel": "self",
+      "method": "DELETE",
+      "uri": "/v1/auction/vehicles/9999"
+    }
+  ]
 }

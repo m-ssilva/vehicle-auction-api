@@ -18,7 +18,7 @@ afterEach(() => {
   nock.cleanAll()
 })
 
-describe('PUT on /auction/vehicle/:id', () => {
+describe('PUT on /v1/auction/vehicles/:id', () => {
   test('return 200 and a message with the updated vehicle information', async () => {
     nock('https://dev.apiluiza.com.br')
       .post('/legado/veiculo', { 'OPERACAO': 'consultar' })
@@ -29,14 +29,14 @@ describe('PUT on /auction/vehicle/:id', () => {
       .reply(200, putVehicleMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .put('/auction/vehicle/1')
-      .send({ bid_user: 'mssilva' })
+      .put('/v1/auction/vehicles/1')
+      .send({ bid: { user: 'mssilva' } })
       .expect(200, expectedPutVehicle)
   })
 
   test('return 400 when invalid parameters is provided', async () => {
     await request
-      .put('/auction/vehicle/1')
+      .put('/v1/auction/vehicles/1')
       .send({ aaa: 'WRONG_PARAMETER' })
       .expect(400)
   })
@@ -51,8 +51,8 @@ describe('PUT on /auction/vehicle/:id', () => {
       .reply(200, putVehicleMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .put('/auction/vehicle/9452')
-      .send({ bid_user: 'mssilva' })
+      .put('/v1/auction/vehicles/9452')
+      .send({ bid: { user: 'mssilva' } })
       .expect(404, { message: 'O ID de veículo informado não foi encontrado' })
   })
 
@@ -62,8 +62,8 @@ describe('PUT on /auction/vehicle/:id', () => {
       .reply(500, { message: 'ANY_ERROR' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .put('/auction/vehicle/1')
-      .send({ bid_user: 'mssilva' })
+      .put('/v1/auction/vehicles/1')
+      .send({ bid: { user: 'mssilva' } })
       .expect(500, { message: 'Ocorreu um erro interno ao consultar a listagem de veículos' })
   })
 })

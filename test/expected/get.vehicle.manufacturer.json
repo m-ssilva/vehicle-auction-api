@@ -7,8 +7,10 @@
     "manufacture_year": 2004,
     "model_name": "PALIO",
     "model_year": 2004,
-    "bid_date": "21/08/2020 - 13:30",
-    "bid_value": 0,
-    "bid_user": "-"
+    "bid": {
+      "date": "21/08/2020 - 13:30",
+      "value": 0,
+      "user": "-"
+    }
   }
 ]

@@ -16,7 +16,7 @@ afterEach(() => {
   nock.cleanAll()
 })
 
-describe('DELETE on /auction/vehicle/:id', () => {
+describe('DELETE on /v1/auction/vehicles/:id', () => {
   test('return 200 when a valid id is provided', async () => {
     nock('https://dev.apiluiza.com.br')
       .post('/legado/veiculo', { 'OPERACAO': 'consultar' })
@@ -27,13 +27,13 @@ describe('DELETE on /auction/vehicle/:id', () => {
       .reply(200, { 'mensagem': 'sucesso' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .delete('/auction/vehicle/1')
-      .expect(200, { message: 'O veículo informado foi deletado com sucesso' })
+      .delete('/v1/auction/vehicles/1')
+      .expect(204)
   })
 
   test('return 400 when a invalid id is provided', async () => {
     await request
-      .delete('/auction/vehicle/invalid_id')
+      .delete('/v1/auction/vehicles/invalid_id')
       .expect(400)
   })
 
@@ -43,7 +43,7 @@ describe('DELETE on /auction/vehicle/:id', () => {
       .reply(200, allVehiclesMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .delete('/auction/vehicle/6541')
+      .delete('/v1/auction/vehicles/6541')
       .expect(404, { message: 'O ID de veículo informado não foi encontrado' })
   })
 })
