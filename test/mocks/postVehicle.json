@@ -5,7 +5,9 @@
   "manufacture_year": "2007",
   "model_name": "CLIO",
   "model_year": "2007",
-  "bid_date": "12/01/2021 - 13:24",
-  "bid_value": 100,
-  "bid_user": "mssilva"
+  "bid": {
+    "date": "21/08/2020 - 13:24",
+    "value": 0,
+    "user": "mssilva"
+  }
 }

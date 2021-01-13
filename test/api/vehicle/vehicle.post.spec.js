@@ -18,21 +18,21 @@ afterEach(() => {
   nock.cleanAll()
 })
 
-describe('POST on /auction/vehicle', () => {
+describe('POST on /v1/auction/vehicles', () => {
   test('return 201 and a message with the created vehicle', async () => {
     nock('https://dev.apiluiza.com.br')
       .post('/legado/veiculo')
       .reply(200, createdVehicleMock, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .post('/auction/vehicle')
+      .post('/v1/auction/vehicles')
       .send(postVehicleMock)
       .expect(201, expectedCreateVehicle)
   })
 
   test('return 400 when valid parameters is not provided', async () => {
     await request
-      .post('/auction/vehicle')
+      .post('/v1/auction/vehicles')
       .send({})
       .expect(400)
   })
@@ -43,7 +43,7 @@ describe('POST on /auction/vehicle', () => {
       .reply(500, { message: 'ANY_ERROR' }, { 'Access-Control-Allow-Origin': '*' })
 
     await request
-      .post('/auction/vehicle')
+      .post('/v1/auction/vehicles')
       .send(postVehicleMock)
       .expect(500, { message: 'Ocorreu um problema ao realizar o cadastro do veículo' })
   })

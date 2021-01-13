@@ -3,6 +3,7 @@ module.exports = {
     URL: "https://dev.apiluiza.com.br/legado/veiculo"
   },
   API: {
-    PORT: 3000
+    PORT: 3000,
+    VERSION: 'v1'
   }
 }
