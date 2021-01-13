@@ -36,12 +36,12 @@ module.exports = {
       lot: Joi.string().pattern(/^[0-9]+$/).required(),
       control_code: Joi.string().pattern(/^[0-9]+$/).required(),
       manufacturer_name: Joi.string().required(),
-      manufacture_year: Joi.string().pattern(/^\d{4}$/).required(),
+      manufacture_year: Joi.number().integer().strict().min(1000).max(9999).required(),
       model_name: Joi.string().required(),
-      model_year: Joi.string().pattern(/^\d{4}$/).required(),
+      model_year: Joi.number().integer().strict().min(1000).max(9999).required(),
       bid: Joi.object({
-        date: Joi.string().pattern(/(\d{2})\/(\d{2})\/(\d{4})\s-\s(\d{2}):(\d{2})/).required(),
-        value: Joi.number().required(),
+        date: Joi.date().required(),
+        value: Joi.number().strict().required(),
         user: Joi.string().required()
       })
     })
@@ -54,12 +54,12 @@ module.exports = {
       lot: Joi.string().pattern(/^[0-9]+$/),
       control_code: Joi.string().pattern(/^[0-9]+$/),
       manufacturer_name: Joi.string(),
-      manufacture_year: Joi.string().pattern(/^\d{4}$/),
+      manufacture_year: Joi.number().integer().strict().min(1000).max(9999),
       model_name: Joi.string(),
-      model_year: Joi.string().pattern(/^\d{4}$/),
+      model_year: Joi.number().integer().strict().min(1000).max(9999),
       bid: Joi.object({
-        date: Joi.string().pattern(/(\d{2})\/(\d{2})\/(\d{4})\s-\s(\d{2}):(\d{2})/),
-        value: Joi.number(),
+        date: Joi.date(),
+        value: Joi.number().strict(),
         user: Joi.string()
       })
     }).min(1)

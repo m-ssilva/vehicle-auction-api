@@ -1,8 +1,8 @@
 const vehiclesLib = require('../lib/vehicles')
 
 const getAllVehicles = async (req, res, next) => {
-  const { sort, order } = req.query
-  const allVehicles = await vehiclesLib.getAllVehicles(sort, order).catch(e => next(e))
+  const { _sort, _order } = req.query
+  const allVehicles = await vehiclesLib.getAllVehicles(_sort, _order).catch(e => next(e))
   res.status(200).send(allVehicles)
 }
 
