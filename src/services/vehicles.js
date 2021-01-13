@@ -20,51 +20,53 @@ const getVehicleById = async (req, res, next) => {
 
 const getVehiclesByLot = async (req, res, next) => {
   const { lot } = req.params
-  const { sort, order } = req.query
-  const vehicles = await vehiclesLib.getVehiclesByLot(lot, sort, order).catch(e => next(e))
+  const { _sort, _order } = req.query
+  const vehicles = await vehiclesLib.getVehiclesByLot(lot, _sort, _order).catch(e => next(e))
   res.status(200).send(vehicles)
 }
 
 const getVehicleByManufacturer = async (req, res, next) => {
   const { manufacturer } = req.params
-  const { sort, order } = req.query
-  const vehicles = await vehiclesLib.getVehiclesByManufacturer(manufacturer, sort, order).catch(e => next(e))
+  const { _sort, _order } = req.query
+  const vehicles = await vehiclesLib.getVehiclesByManufacturer(manufacturer, _sort, _order).catch(e => next(e))
   res.status(200).send(vehicles)
 }
 
 const getVehicleByModelName = async (req, res, next) => {
   const { modelName } = req.params
-  const { sort, order } = req.query
-  const vehicles = await vehiclesLib.getVehiclesByModelName(modelName, sort, order).catch(e => next(e))
+  const { _sort, _order } = req.query
+  const vehicles = await vehiclesLib.getVehiclesByModelName(modelName, _sort, _order).catch(e => next(e))
   res.status(200).send(vehicles)
 }
 
 const getVehicleByManufacturerYearAndModelYear = async (req, res, next) => {
   const { manufactureYear, modelYear } = req.params
-  const { sort, order } = req.query
-  const vehicles = await vehiclesLib.getVehicleByManufacturerYearAndModelYear(manufactureYear, modelYear, sort, order)
+  const { _sort, _order } = req.query
+  const vehicles = await vehiclesLib.getVehicleByManufacturerYearAndModelYear(manufactureYear, modelYear, _sort, _order)
     .catch(e => next(e))
   res.status(200).send(vehicles)
 }
 
 const getVehiclesByYearPeriod = async (req, res, next) => {
   const { startYear, endYear } = req.params
-  const { sort, order } = req.query
-  const vehicles = await vehiclesLib.getVehiclesByYearPeriod(startYear, endYear, sort, order)
+  const { _sort, _order } = req.query
+  const vehicles = await vehiclesLib.getVehiclesByYearPeriod(startYear, endYear, _sort, _order)
     .catch(e => next(e))
   res.status(200).send(vehicles)
 }
 
 const createVehicle = async (req, res, next) => {
   const { body: vehicle } = req
-  await vehiclesLib.createVehicle(vehicle).then(createdVehicle => {
-    res.location(`${req.headers.host}${req.originalUrl}/${createdVehicle.id}`)
-    res.status(201).json(createdVehicle, [
-      { rel: 'self', method: 'GET', uri: `${req.originalUrl}/${createdVehicle.id}` },
-      { rel: 'self', method: 'PUT', uri: `${req.originalUrl}/${createdVehicle.id}` },
-      { rel: 'self', method: 'DELETE', uri: `${req.originalUrl}/${createdVehicle.id}` }
-    ])
-  }).catch(e => next(e))
+  await vehiclesLib.createVehicle(vehicle)
+    .then(createdVehicle => {
+      res.location(`${req.headers.host}${req.originalUrl}/${createdVehicle.id}`)
+      res.status(201).json(createdVehicle, [
+        { rel: 'self', method: 'GET', uri: `${req.originalUrl}/${createdVehicle.id}` },
+        { rel: 'self', method: 'PUT', uri: `${req.originalUrl}/${createdVehicle.id}` },
+        { rel: 'self', method: 'DELETE', uri: `${req.originalUrl}/${createdVehicle.id}` }
+      ])
+    })
+    .catch(e => next(e))
 }
 
 const updateVehicle = async (req, res, next) => {
