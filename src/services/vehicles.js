@@ -76,10 +76,8 @@ const updateVehicle = async (req, res, next) => {
 
 const deleteVehicle = async (req, res, next) => {
   const { id } = req.params
-  await vehiclesLib.deleteVehicle(id)
-    .then(_ => {
-      res.status(200).send({ message: 'O veículo informado foi deletado com sucesso' })
-    })
+  vehiclesLib.deleteVehicle(id)
+    .then(_ => res.status(204).send())
     .catch(e => next(e))
 }
 
