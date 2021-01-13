@@ -2,11 +2,11 @@
   "lot": "9999",
   "control_code": "15542",
   "manufacturer_name": "RENAULT",
-  "manufacture_year": "2007",
+  "manufacture_year": 2007,
   "model_name": "CLIO",
-  "model_year": "2007",
+  "model_year": 2007,
   "bid": {
-    "date": "21/08/2020 - 13:24",
+    "date": "2020-08-21T13:24:00Z",
     "value": 0,
     "user": "mssilva"
   }

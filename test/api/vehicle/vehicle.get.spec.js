@@ -38,7 +38,7 @@ describe('GET on /v1/auction/vehicles', () => {
 
     await request
       .get('/v1/auction/vehicles')
-      .query({ sort: 'id', order: 'desc' })
+      .query({ _sort: 'id', _order: 'desc' })
       .expect(200, expectedGetVehiclesOrdened)
   })
 
@@ -109,7 +109,7 @@ describe('GET on /v1/auction/vehicles/lot/:lot', () => {
 
     await request
       .get('/v1/auction/vehicles/lot/0196')
-      .query({ sort: 'id', order: 'desc' })
+      .query({ _sort: 'id', _order: 'desc' })
       .expect(200, expectedGetVehiclesOrdened)
   })
 
