@@ -8,7 +8,7 @@
   "INVALID_SORT_FIELD": {
     "status": 400,
     "body": {
-      "message": "O nome de campo informado na query sortBy é inválido"
+      "message": "O nome de campo informado na query _sort é inválido"
     }
   },
   "INVALID_YEAR_PERIOD": {
