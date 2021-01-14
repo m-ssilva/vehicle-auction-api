@@ -2,6 +2,7 @@
 
 ### Prerequisites
 NodeJS - https://nodejs.org/en/
+Docker - https://www.docker.com/
 
 ### Installation
 - Clone the project repository
@@ -9,7 +10,7 @@ NodeJS - https://nodejs.org/en/
 - Install dependencies
 > npm install
 - Start application
-> npm start
+> npm start or docker-compose up
 - Application will be available in http://localhost:3000
 
 ### Endpoints
