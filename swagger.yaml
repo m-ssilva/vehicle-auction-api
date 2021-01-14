@@ -62,6 +62,7 @@ paths:
       parameters:
         - name: "id"
           in: "path"
+          example: 1
           required: true
           schema:
             type: "number"
@@ -99,6 +100,7 @@ paths:
       parameters:
         - name: "id"
           in: "path"
+          example: 1
           required: true
           schema:
             type: "number"
@@ -159,6 +161,7 @@ paths:
         - $ref: "#/components/parameters/orderBy"
         - name: "lot"
           in: "path"
+          example: 0196
           required: true
           schema:
             type: "string"
@@ -377,7 +380,7 @@ components:
       properties:
         id:
           type: "number"
-          example: "1"
+          example: 1
         lot:
           type: "string"
           example: "0196"
@@ -413,7 +416,7 @@ components:
       properties:
         id:
           type: "number"
-          example: "1"
+          example: 1
         lot:
           type: "string"
           example: "0196"
@@ -473,7 +476,7 @@ components:
       properties:
         id:
           type: "number"
-          example: "1"
+          example: 1
         lot:
           type: "string"
           example: "0196"
