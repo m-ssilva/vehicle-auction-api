@@ -3,7 +3,9 @@ const Joi = require('joi')
 const defaultQueryParams = {
   query: Joi.object({
     _sort: Joi.string(),
-    _order: Joi.string().valid('asc', 'desc')
+    _order: Joi.string().valid('asc', 'desc'),
+    _limit: Joi.number().integer().positive(),
+    _offset: Joi.number().integer().positive()
   })
 }
 

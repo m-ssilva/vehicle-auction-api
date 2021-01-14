@@ -1,8 +1,8 @@
 const vehiclesLib = require('../lib/vehicles')
 
 const getAllVehicles = async (req, res, next) => {
-  const { _sort, _order } = req.query
-  const allVehicles = await vehiclesLib.getAllVehicles(_sort, _order).catch(e => next(e))
+  const { _sort, _order, _limit, _offset } = req.query
+  const allVehicles = await vehiclesLib.getAllVehicles(_sort, _order, _limit, _offset).catch(e => next(e))
   res.status(200).send(allVehicles)
 }
 
@@ -20,37 +20,37 @@ const getVehicleById = async (req, res, next) => {
 
 const getVehiclesByLot = async (req, res, next) => {
   const { lot } = req.params
-  const { _sort, _order } = req.query
-  const vehicles = await vehiclesLib.getVehiclesByLot(lot, _sort, _order).catch(e => next(e))
+  const { _sort, _order, _limit, _offset } = req.query
+  const vehicles = await vehiclesLib.getVehiclesByLot(lot, _sort, _order, _limit, _offset).catch(e => next(e))
   res.status(200).send(vehicles)
 }
 
 const getVehicleByManufacturer = async (req, res, next) => {
   const { manufacturer } = req.params
-  const { _sort, _order } = req.query
-  const vehicles = await vehiclesLib.getVehiclesByManufacturer(manufacturer, _sort, _order).catch(e => next(e))
+  const { _sort, _order, _limit, _offset } = req.query
+  const vehicles = await vehiclesLib.getVehiclesByManufacturer(manufacturer, _sort, _order, _limit, _offset).catch(e => next(e))
   res.status(200).send(vehicles)
 }
 
 const getVehicleByModelName = async (req, res, next) => {
   const { modelName } = req.params
-  const { _sort, _order } = req.query
-  const vehicles = await vehiclesLib.getVehiclesByModelName(modelName, _sort, _order).catch(e => next(e))
+  const { _sort, _order, _limit, _offset } = req.query
+  const vehicles = await vehiclesLib.getVehiclesByModelName(modelName, _sort, _order, _limit, _offset).catch(e => next(e))
   res.status(200).send(vehicles)
 }
 
 const getVehicleByManufacturerYearAndModelYear = async (req, res, next) => {
   const { manufactureYear, modelYear } = req.params
-  const { _sort, _order } = req.query
-  const vehicles = await vehiclesLib.getVehicleByManufacturerYearAndModelYear(manufactureYear, modelYear, _sort, _order)
+  const { _sort, _order, _limit, _offset } = req.query
+  const vehicles = await vehiclesLib.getVehicleByManufacturerYearAndModelYear(manufactureYear, modelYear, _sort, _order, _limit, _offset)
     .catch(e => next(e))
   res.status(200).send(vehicles)
 }
 
 const getVehiclesByYearPeriod = async (req, res, next) => {
   const { startYear, endYear } = req.params
-  const { _sort, _order } = req.query
-  const vehicles = await vehiclesLib.getVehiclesByYearPeriod(startYear, endYear, _sort, _order)
+  const { _sort, _order, _limit, _offset } = req.query
+  const vehicles = await vehiclesLib.getVehiclesByYearPeriod(startYear, endYear, _sort, _order, _limit, _offset)
     .catch(e => next(e))
   res.status(200).send(vehicles)
 }
